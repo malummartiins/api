@@ -1,8 +1,6 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
-import med.voll.api.endereco.Endereco;
-
-import java.util.SplittableRandom;
+import med.voll.api.domain.endereco.Endereco;
 
 public record DadosDetalhamentomedico(Long id, String nome, String email, String crm, String telefone, Especialidade especialidade, Endereco endereco) {
 
