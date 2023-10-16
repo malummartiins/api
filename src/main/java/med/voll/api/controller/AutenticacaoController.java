@@ -30,10 +30,9 @@ public class AutenticacaoController {
 
             return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
         } catch (Exception e) {
+            System.out.println("Erro ao efetuar login");
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
 }
