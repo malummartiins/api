@@ -28,7 +28,7 @@ public class AgendaDeConsultas {
     //aqui ficam as regras de negócio da aplicação
     //o objetivo é salvar uma consulta no BD
 
-    public void agendar(DadosAgendamentoConsulta dados){
+    public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados){
         if (!pacienteRepository.existsById(dados.idPaciente())){
             throw new ValidacaoException("Id do paciente informado não existe");
         }
@@ -41,8 +41,14 @@ public class AgendaDeConsultas {
 
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedico(dados);
+        if (medico == null){
+            throw new ValidacaoException("Não existe médico disponível nessa data");
+        }
+
         var consulta = new Consulta(null,medico, paciente, dados.data(), null);
         consultaRepository.save(consulta);
+
+        return new DadosDetalhamentoConsulta(consulta);
     }
 
     private Medico escolherMedico(DadosAgendamentoConsulta dados) {
